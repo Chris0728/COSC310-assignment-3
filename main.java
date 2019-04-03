@@ -1,11 +1,18 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+	
 public class main {
 	private static short state = 0;
 	private static short backupState = 0;
 	private static String options = "- Looking for items \n- Show business hours and location \n- Tracking or cancel orders \n- Rate and leave comments";
-	
+	static ServerSocket serversocket = null;
+	static Socket socket = null;
+	static DataInputStream input;
+	static DataOutputStream output;
 	
 	// A 2D array of keywords/phrases to detect actions for each states.
 	private static String[][] keyword = { { "search", "get", "item", "looking for" }, // Goes from 0 to 1
@@ -64,21 +71,34 @@ public class main {
 	// state == 18 is generic confirm
 	// state == 19 is unacknowledged action
 	// state == 20 puts you out of the loop (end)
-
+	
 	public static void main(String[] args) {
-		System.out.println("Hello there, welcome to SuperWet online customer service. How may I help you today?");
-		System.out.println(options);
-		do {
-			respond();
-		} while (state != 20);
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					serversocket = new ServerSocket(3535);
+					socket = serversocket.accept();
+					input = new DataInputStream(socket.getInputStream());
+					output = new DataOutputStream(socket.getOutputStream());
+					String message = "";
+					output.writeUTF("Hello there, welcome to SuperWet online customer service. How may I help you today?");
+					output.writeUTF(options);
+					while(true) {
+						message = input.readUTF();
+						output.writeUTF(respond(message));
+					}
+					
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+			}
+		}).start();
 	}
 
-	public static void respond() {
-		Scanner in = new Scanner(System.in);
-		String input = in.nextLine();
-		state = findstate.findState(input);
-		String output = response.findResponse(input);
-		System.out.println(output);
+	public static String respond(String str) {
+		state = findstate.findState(str);
+		String output = response.findResponse(str);
+		return output;
 			
 	}
 	
@@ -101,6 +121,4 @@ public class main {
 	public static void setbkState(short i) {
 		backupState = i;
 	}
-	
-	
 }
