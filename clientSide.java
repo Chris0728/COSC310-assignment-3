@@ -19,7 +19,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 //This is a client interface that can communicate with the chatbot(that was created in assignment 2)
-public class surface extends JFrame {
+public class clientSide extends JFrame {
 	static Socket socket = null;
 	static DataInputStream input;
 	static DataOutputStream output;
@@ -36,7 +36,7 @@ public class surface extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					surface frame = new surface();
+					clientSide frame = new clientSide();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,14 +53,8 @@ public class surface extends JFrame {
 					output = new DataOutputStream(socket.getOutputStream());
 					while(true) {
 					message = input.readUTF();
-					String previousContent = textArea.getText();
-					String originalText;
-					if(previousContent.isEmpty())
-						originalText = new String();
-					else
-						originalText = previousContent;
-					
-					textArea.setText(originalText + "\n" + "--> (bot): "+message);
+					textArea.append("--> (bot): "+message+ "\n");
+					textArea.getCaret().setDot(Integer.MAX_VALUE);
 					}
 				}catch(Exception e)
 				{
@@ -78,7 +72,7 @@ public class surface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public surface() {
+	public clientSide() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 694, 650);
 		contentPane = new JPanel();
@@ -115,7 +109,8 @@ public class surface extends JFrame {
 			try {
 				String message ="";
 				message = textField.getText();
-				textArea.setText(textArea.getText() + "\n" +"--> (client): "+ message);
+				textArea.append("--> (client): "+ message+"\n");
+				textArea.getCaret().setDot(Integer.MAX_VALUE);
 				output.writeUTF(message);
 				textField.setText("");
 				
@@ -132,7 +127,4 @@ public class surface extends JFrame {
 		
 	}
 
-	public void addText(String str){
-		textArea.setText(textArea.getText()+str);
-	}
 }

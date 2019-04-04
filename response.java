@@ -45,14 +45,21 @@ public class response {
 					"You could leave your comment below, we accept any appraisals and criticisms.",
 					"Type in your comments below, and we will be sure to make improvements." },
 			{ "Got it. ", "No problem. ", "Understood. ", "Okay. ", "Alright. ", "Done. " },
-			{ "Sorry, I do not understand what you mean, can you try again?", "My bad, could you say it once more?",
+			{ "Sorry, I do not understand what you mean, can you try again?", 
+					"My bad, could you say it once more?",
 					"Sorry, I do not understand what you want me to do. Could you come again?",
-					"Sorry, I do not know what you want me to do, could you repeat to me one more time?" },
+					"Sorry, I do not know what you want me to do, could you repeat to me one more time?",
+					"I am sorry, that is far beyond my understanding",
+					"I am sorry, what you are asking for is out of my duty."},
 			{ "Thank you for using our customer service, goodbye.", "Thank you for using our service, see you soon.",
 					"Thank you for contacting us, we look forward to your visit again.",
 					"Thanks for using our online services, don't hesitate to ask us if you have more questions." },
-			{ "Please enter your credit card number again." }, { "Please enter your name again." },
-			{ "Please enter your email again." } };
+			{ "Please enter your credit card number again." }, 
+			{ "Please enter your name again." },
+			{ "Please enter your email again." } ,
+			{"ALL ACCESSORIES ARE ON SALE!! Please visit our physical for more details.",
+				"30% OFF for ACCESSORIES! visit our store for more details!", 
+				"DON'T MISS THE SALE!! All accessories are 40% off!"}};
 
 	public static String findResponse(String input) {
 		String response = "";
@@ -72,7 +79,7 @@ public class response {
 			main.setState((short)0);
 			response += getResponse();
 		}
-		if (main.getState() == 19)
+		if (main.getState() == 19 ||main.getState()==24)
 			main.setState(main.getbkState());
 		return response;
 	}

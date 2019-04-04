@@ -43,6 +43,14 @@ public class findstate {
 				else
 					return 8;
 			}
+		for(String d : main.accessories) {
+			if(main.getState() == 1 && (input.contains(d) || input.equals(d))) {
+				if(Math.random() > 0.3)
+					return 8; //out of stock
+				else
+					return 24; //items on sale
+			}
+		}
 		}
 		if (main.getState() == 1)
 			return 10;

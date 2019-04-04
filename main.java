@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class main {
 	private static short state = 0;
 	private static short backupState = 0;
-	private static String options = "- Looking for items \n- Show business hours and location \n- Tracking or cancel orders \n- Rate and leave comments";
+	private static String options = "\n- Looking for items \n- Show business hours and location \n- Tracking or cancel orders \n- Rate and leave comments";
 	static ServerSocket serversocket = null;
 	static Socket socket = null;
 	static DataInputStream input;
@@ -27,11 +27,13 @@ public class main {
 			{ "don't", "do not", "wrong", "not correct", "incorrect", "no" }, // Generic wrong keywords
 			{ "return", "go back", "not what", "not this", "something else", "not looking", "wrong", "no thanks",
 					"no, thanks", "no need"}, // Goes to state = 0; overrides every other conditions except state = 20
-			{ "goodbye", "that's all", "is all", "done", "everything", "good" } };// Goes to state = 20; overrides every
-																					// other conditions
+			{ "goodbye", "that's all", "is all", "done", "everything", "good" },// Goes to state = 20; overrides every other conditions 
+			{"manager","report","explain","refund"}// Calls out manager, change to reply manually
+			};
 	// An array storing generic clothing items
 	public static String[] clothingItems = { "t-shirt", "pants", "jeans", "jacket", "gloves", "shirt", "socks",
-			"sneakers", "boots", "cap", "sweater", "belt", "coat" };
+			"sneakers", "boots", "sweater", "coat" };
+	public static String[] accessories = {"earrings","watch","sunglasses","bags","wallet","purse","cap","belt"};
 	// Business times and location
 	public static String info = "\nLocation: 123 J.Doe Street, Kelowna\n" + "Sun: Closed\n" + "Mon: 10 AM to 8 PM\n"
 			+ "Tue: 10 AM to 8 PM\n" + "Wed: 10 AM to 8 PM\n" + "Thu: 10 AM to 8 PM\n" + "Fri: 10 AM to 9 PM\n"
@@ -93,13 +95,14 @@ public class main {
 				}
 			}
 		}).start();
+		
+		
 	}
 
 	public static String respond(String str) {
 		state = findstate.findState(str);
 		String output = response.findResponse(str);
-		return output;
-			
+		return output;	
 	}
 	
 	public static String getKeyWord(int i, int j) {
