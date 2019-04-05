@@ -86,16 +86,27 @@ public class main {
 					output.writeUTF("Hello there, welcome to SuperWet online customer service. How may I help you today?");
 					output.writeUTF(options);
 					while(true) {
+						boolean stop = false;
 						message = input.readUTF();
+						for(int i = 0; i < keywordLen(12);i++) {
+							if(message.contains(getKeyWord(12,i))) {
+								socket.close();
+								manager.main(args);
+								stop = true;
+								break;
+							}
+						}
+						if(!stop)
 						output.writeUTF(respond(message));
+						else
+							break;
 					}
 					
 				}catch(Exception e) {
-					System.out.println(e);
+					e.printStackTrace();
 				}
 			}
 		}).start();
-		
 		
 	}
 

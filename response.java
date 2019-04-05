@@ -57,7 +57,7 @@ public class response {
 			{ "Please enter your credit card number again." }, 
 			{ "Please enter your name again." },
 			{ "Please enter your email again." } ,
-			{"ALL ACCESSORIES ARE ON SALE!! Please visit our physical for more details.",
+			{"ALL ACCESSORIES ARE ON SALE!! Please visit our physical store for more details.",
 				"30% OFF for ACCESSORIES! visit our store for more details!", 
 				"DON'T MISS THE SALE!! All accessories are 40% off!"}};
 

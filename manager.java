@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.swing.JScrollPane;
@@ -19,14 +19,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-//This is a client interface that can communicate with the chatbot(that was created in assignment 2)
-public class clientSide extends JFrame {
+//This is a manager interface that can communicate with the client (when client ask to talk to manager)
+public class manager extends JFrame {
+	static ServerSocket serversocket = null;
 	static Socket socket = null;
 	static DataInputStream input;
 	static DataOutputStream output;
-	static boolean fetch;
-	static DataInputStream Newinput;
-	static DataOutputStream Newoutput;
+	
 	private static JPanel contentPane;
 	private static JTextField textField;
 	private static JTextArea textArea;
@@ -39,7 +38,7 @@ public class clientSide extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					clientSide frame = new clientSide();
+					manager frame = new manager();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,46 +48,25 @@ public class clientSide extends JFrame {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					fetch = false;//switching of socket is not needed for now
-					initialize();
-					socket = new Socket("localhost",3535);//connects to server. Need to change to server's IP address if the server is on different computer. In this case, the server is on the same machine.
-					String message="";
+					serversocket = new ServerSocket(3536);
+					socket = serversocket.accept();
 					input = new DataInputStream(socket.getInputStream());
 					output = new DataOutputStream(socket.getOutputStream());
+					String message = "Hello there, I am the Customer Service representative. How can I help you today?";
+					output.writeUTF(message);
+					textArea.append("--> (manager): "+message+ "\n");
+					textArea.getCaret().setDot(Integer.MAX_VALUE);
 					while(true) {
-					message = input.readUTF();
-					textArea.append("--> (bot): "+message+ "\n");
-					textArea.getCaret().setDot(Integer.MAX_VALUE);
-					}
-				}catch(Exception e)//This scenario is when customer is asking to talk to a real person, the chatroom would switch to a different socket of manager server for real-time messaging
-				{
-					textArea.append("Reconnecting...\n");
-					textArea.getCaret().setDot(Integer.MAX_VALUE);
-					try {
-						input.close();
-						output.close();
-						socket.close();
-						fetch = true;//switching of socket is needed 
-						Socket sssocket = new Socket("localhost",3536);
-						 Newinput = new DataInputStream(sssocket.getInputStream());
-						 Newoutput = new DataOutputStream(sssocket.getOutputStream());
-						String message="";
-						textArea.append("Reconnected\n");
+						message = input.readUTF();
+						textArea.append("--> (Client): "+message+ "\n");
 						textArea.getCaret().setDot(Integer.MAX_VALUE);
-						while(true) {
-							message = Newinput.readUTF();
-							textArea.append("--> (manager): "+message+ "\n");
-							textArea.getCaret().setDot(Integer.MAX_VALUE);
-							}
-						
-					} catch (IOException e1) {//if the connection is failed
-						textArea.append("fail to reconnect");
-						e1.printStackTrace();
 					}
-					}
+				}catch(Exception e)
+				{
+					e.printStackTrace();
 				}
 			}
-		).start();
+		}).start();
 	}
 	public static void initialize() {
 		textArea = new JTextArea();
@@ -99,8 +77,8 @@ public class clientSide extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public clientSide() {
-		setTitle("Customer Service Chatroom");
+	public manager() {
+		setTitle("Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 694, 650);
 		contentPane = new JPanel();
@@ -110,7 +88,7 @@ public class clientSide extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.info);
+		panel.setBackground(SystemColor.activeCaption);
 		panel.setBounds(0, 0, 668, 579);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -137,13 +115,9 @@ public class clientSide extends JFrame {
 			try {
 				String message ="";
 				message = textField.getText();
-				textArea.append("--> (client): "+ message+"\n");
+				textArea.append("--> (manager): "+ message+"\n");
 				textArea.getCaret().setDot(Integer.MAX_VALUE);
-				if(!fetch)
 				output.writeUTF(message);
-				else
-				Newoutput.writeUTF(message);
-				
 				textField.setText("");
 				
 			}catch(Exception EE)
