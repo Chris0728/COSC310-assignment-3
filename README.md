@@ -16,7 +16,7 @@
 ### Manager interface is newly added: manager.
 * This class is basically a server (other than the chatbot) for user to connect and communicate with. When client ask for real-person-representative, the chatbot would switch to this class and start up manager server for user to connect. After connection, manager GUI would appear on manager side (also on local host this time), and manager are ready to have conversation with the client.
 
-List of features added:
+###List of features added:
 * -GUI created
 * -extra topic added
 * -respsonses for out of topics expanded
