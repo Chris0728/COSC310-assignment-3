@@ -15,7 +15,8 @@ public class main {
 	static DataOutputStream output;
 	
 	// A 2D array of keywords/phrases to detect actions for each states.
-	private static String[][] keyword = { { "search", "get", "item", "looking for" }, // Goes from 0 to 1
+	private static String[][] keyword = { 
+			{ "search", "get", "item", "looking for" }, // Goes from 0 to 1
 			{ "buy", "purchase", "online", "order" }, // Goes from 2 to 3
 			{ "reserve", "keep", "stay", "store" }, // Goes from 2 to 6
 			{ "check", "hours", "location", "business", "time", "address" }, // Goes from 0 to 11
@@ -28,7 +29,8 @@ public class main {
 			{ "return", "go back", "not what", "not this", "something else", "not looking", "wrong", "no thanks",
 					"no, thanks", "no need"}, // Goes to state = 0; overrides every other conditions except state = 20
 			{ "goodbye", "that's all", "is all", "done", "everything", "good" },// Goes to state = 20; overrides every other conditions 
-			{"manager","report","explain","refund"}// Calls out manager, change to reply manually
+			{"manager","report","explain","refund"},// Calls out manager, change to reply manually
+			{"search","buy","reserve","order","track","cancel","comment","rat"}//searching hot keys
 			};
 	// An array storing generic clothing items
 	public static String[] clothingItems = { "t-shirt", "pants", "jeans", "jacket", "gloves", "shirt", "socks",

@@ -1,6 +1,51 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import edu.stanford.nlp.io.*;
+import edu.stanford.nlp.ling.*;
+import edu.stanford.nlp.pipeline.*;
+import edu.stanford.nlp.trees.*;
+import edu.stanford.nlp.util.*;
 
 public class findstate {
 	public static short findState(String input) {
+		
+		//Stanford NLP toolkit of part of speech is used for searching verbs that enables faster responses for typical hotkeys 
+		String word=null;
+		String pos=null;
+		Properties props = new Properties();
+		props.setProperty("annotators","tokenize, ssplit, pos");
+		StanfordCoreNLP stanfordCoreNLP = new StanfordCoreNLP(props);
+		Annotation coreDocument = new Annotation(input);
+		stanfordCoreNLP.annotate(coreDocument);
+		
+		List<CoreMap> sentences = coreDocument.get(CoreAnnotations.SentencesAnnotation.class);
+		for(CoreMap sentence: sentences) {
+			for(CoreLabel token : sentence.get((CoreAnnotations.TokensAnnotation.class))){
+				 word = token.get((CoreAnnotations.TextAnnotation.class));
+				 pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+				 if(pos.contains("VB")) {//if there exists a verb, change state immediately for shortcut
+						for(int i = 0; i < main.keywordLen(13);i++) {
+							if(input.contains(main.getKeyWord(13,0)) && main.getState() == 0)
+								return 1;
+							if(input.contains(main.getKeyWord(13,1)) && main.getState() == 1 )
+								{if(Math.random()>0.5)return 2;else return 8;}
+							if(input.contains(main.getKeyWord(13,2)) && main.getState() == 2)
+								return 6;
+							if(input.contains(main.getKeyWord(13,3)) && main.getState() == 0)
+								return 12;
+							if(input.contains(main.getKeyWord(13,4)) && main.getState() == 13)
+								return 14;
+							if(input.contains(main.getKeyWord(13,5)) && main.getState() == 13)
+								return 15;
+							if((input.contains(main.getKeyWord(13,6))||input.contains(main.getKeyWord(13,7)))&&main.getState() == 0)
+								return 17;
+							
+						}
+			}
+		}
+		}
 		// To state = 20
 		for (int i = 0; i < main.keywordLen(11); i++) {
 			if (input.contains(main.getKeyWord(11, i)))
