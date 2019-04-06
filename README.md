@@ -16,7 +16,7 @@
 ### Manager interface is newly added: manager.
 * This class is basically a server (other than the chatbot) for user to connect and communicate with. When client ask for real-person-representative, the chatbot would switch to this class and start up manager server for user to connect. After connection, manager GUI would appear on manager side (also on local host this time), and manager are ready to have conversation with the client.
 
-###List of features added:
+### List of features added:
 * -GUI created
 * GUI added for increase user's experience in asethetic aspect.
 * -extra topic added
@@ -29,7 +29,8 @@
 * it is created so that the client side now is totally independent of the chatbot
 * -manager class added for real-time conversation with real representatives
 * last resort for communication if the chatbot cannot satisfy the client.
-###Features that can be extracted and share with others as API:
+
+### Features that can be extracted and share with others as API:
 * socket connection of client, chatbot(class), and manager class
 * application of stanford toolkit
 * switching of socket(or IP address) connection
