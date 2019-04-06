@@ -17,9 +17,9 @@
 * This class is basically a server (other than the chatbot) for user to connect and communicate with. When client ask for real-person-representative, the chatbot would switch to this class and start up manager server for user to connect. After connection, manager GUI would appear on manager side (also on local host this time), and manager are ready to have conversation with the client.
 
 List of features added:
-*-GUI created
-*-extra topic added
-*-respsonses for out of topics expanded
-*-Stanford POS toolkit applied
-*-sockets applied in connection between client, chatbot, and manager
-*-manager class added for real-time conversation with real representatives
+* -GUI created
+* -extra topic added
+* -respsonses for out of topics expanded
+* -Stanford POS toolkit applied
+* -sockets applied in connection between client, chatbot, and manager
+* -manager class added for real-time conversation with real representatives
