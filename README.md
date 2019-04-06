@@ -29,3 +29,9 @@
 * it is created so that the client side now is totally independent of the chatbot
 * -manager class added for real-time conversation with real representatives
 * last resort for communication if the chatbot cannot satisfy the client.
+###Features that can be extracted and share with others as API:
+* socket connection of client, chatbot(class), and manager class
+* application of stanford toolkit
+* switching of socket(or IP address) connection
+* server-client chatroom
+* changing states and randomized responses system of the chatbot
