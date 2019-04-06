@@ -18,8 +18,14 @@
 
 ###List of features added:
 * -GUI created
+* GUI added for increase user's experience in asethetic aspect.
 * -extra topic added
+* extra topics added for increasing flow of conversation (not easily off topic)
 * -respsonses for out of topics expanded
+* the responses are more unpredictable and randomized
 * -Stanford POS toolkit applied
+* cut down the time for searching responses for typical tasks (like searching, buying, reserving, etc.)
 * -sockets applied in connection between client, chatbot, and manager
+* it is created so that the client side now is totally independent of the chatbot
 * -manager class added for real-time conversation with real representatives
+* last resort for communication if the chatbot cannot satisfy the client.
