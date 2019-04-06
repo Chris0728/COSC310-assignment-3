@@ -18,9 +18,9 @@
 
 ###List of features added:
 * -GUI created
- GUI added for increase user's experience in asethetic aspect.
+* GUI added for increase user's experience in asethetic aspect.
 * -extra topic added
- extra topics added for increasing flow of conversation (not easily off topic)
+* extra topics added for increasing flow of conversation (not easily off topic)
 * -respsonses for out of topics expanded
 * the responses are more unpredictable and randomized
 * -Stanford POS toolkit applied
